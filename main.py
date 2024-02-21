@@ -1,6 +1,6 @@
 import pandas as pd
 
-from Batiement import *
+from Batiment import *
 from Infrastructure import *
 
 print('__|__' * 22)
@@ -9,6 +9,9 @@ network_df = pd.read_csv('./reseau_file/dataset/reseau_en_arbre.csv')
 # print(network_df.head())
 
 infra_dict = {}
+batiment_dict = {}
+
+
 
 for index, row in network_df.iterrows():
     infra_id = row['infra_id']
@@ -22,9 +25,23 @@ for index, row in network_df.iterrows():
         )
     
 
-for infra_id, infra_obj in infra_dict.items():
-    infra_obj.get_infra_difficulty()
-    print(f"Infrastructure ID: {infra_id}, Type: {infra_obj.infra_type}, Nb House(s): {infra_obj.nb_houses}, Length: {infra_obj.length}, Difficulty: {infra_obj.infra_difficulty}")
+for index, row in network_df.iterrows():
+    batiment_id = row['id_batiment']
+    
+    if batiment_id not in batiment_dict:
+        batiment_dict[batiment_id] = Batiment(
+            id_building=row['id_batiment'],
+            list_infras=0
+        )
+
+for bat_id, bat_obj in batiment_dict.items():
+    print(f"batiment id: {bat_obj.id_building}")
+
+print("_" * 30)
+
+# for infra_id, infra_obj in infra_dict.items():
+#     infra_obj.get_infra_difficulty()
+#     print(f"Infrastructure ID: {infra_id}, Type: {infra_obj.infra_type}, Nb House(s): {infra_obj.nb_houses}, Length: {infra_obj.length}, Difficulty: {infra_obj.infra_difficulty}")
 
 
 
