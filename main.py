@@ -27,21 +27,30 @@ for index, row in network_df.iterrows():
 
 for index, row in network_df.iterrows():
     batiment_id = row['id_batiment']
-    
+        
     if batiment_id not in batiment_dict:
         batiment_dict[batiment_id] = Batiment(
             id_building=row['id_batiment'],
-            list_infras=0
+            list_infras=[]
         )
+        
+    infra_id = row['infra_id']
+    batiment_dict[batiment_id].list_infras.append(infra_dict[infra_id])
 
-for bat_id, bat_obj in batiment_dict.items():
-    print(f"batiment id: {bat_obj.id_building}")
 
-print("_" * 30)
 
-# for infra_id, infra_obj in infra_dict.items():
-#     infra_obj.get_infra_difficulty()
-#     print(f"Infrastructure ID: {infra_id}, Type: {infra_obj.infra_type}, Nb House(s): {infra_obj.nb_houses}, Length: {infra_obj.length}, Difficulty: {infra_obj.infra_difficulty}")
+
+# for infra_index, infra_element in infra_dict.items():
+    
+
+
+# for bat_id, bat_obj in batiment_dict.items():
+    
+# for batiment_id, batiment_obj in batiment_dict.items():
+#     print(f"Batiment ID: {batiment_id}, Number of Infras: {len(batiment_obj.list_infras)}")
+#     for infra_obj in batiment_obj.list_infras:
+#         print(f"  Infrastructure ID: {infra_obj.infra_id}, Type: {infra_obj.infra_type}, Length: {infra_obj.length}")
+
 
 
 
