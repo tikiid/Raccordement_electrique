@@ -8,10 +8,21 @@ print('__|__' * 22)
 network_df = pd.read_csv('./reseau_file/dataset/reseau_en_arbre.csv')
 # print(network_df.head())
 
+def remove_element_from_dict_with_keys(dict, list_of_key):
+    for key in keys_to_remove:
+        batiment_dict.pop(key, None)
+    return dict
+
+# Create list and dictionnary
+
 infra_dict = {}
 batiment_dict = {}
+no_impact_batiment_list = []
+impact_batiment_list = []
+keys_to_remove = []
 
 
+# Create infrastructures object
 
 for index, row in network_df.iterrows():
     infra_id = row['infra_id']
@@ -24,6 +35,7 @@ for index, row in network_df.iterrows():
             nb_houses=row['nb_maisons']
         )
     
+# Add infrastructures obj to corresponding batiment obj 
 
 for index, row in network_df.iterrows():
     batiment_id = row['id_batiment']
@@ -37,19 +49,101 @@ for index, row in network_df.iterrows():
     infra_id = row['infra_id']
     batiment_dict[batiment_id].list_infras.append(infra_dict[infra_id])
 
+# no_impact = all(infrastructure == 'infra_intacte' for infrastructure in )
+
+# size of batiment dict
+print(len(batiment_dict))
+
+# Add not impacted batiment to a list
+
+for bat_id, bat_obj in batiment_dict.items():
+    flag = True
+    for infra_object in bat_obj.list_infras:
+        if not(infra_object.infra_type == 'infra_intacte'):
+            flag = False
+    if flag:
+        no_impact_batiment_list.append(bat_obj)
+        # del batiment_dict[bat_id] not working : dict change size
+        keys_to_remove.append(bat_id)
+
+# Remove not impacted batiment from batiment_dict
+
+for key in keys_to_remove:
+    batiment_dict.pop(key, None)
+
+keys_to_remove.clear()
+# size of batiment dict with impacted batiement
+
+print(len(batiment_dict))
+
+min_difficulty = 10000000000
+
+# checking impacted batiment
+while len(impact_batiment_list) != len(batiment_dict):
+    id_bat_to_add = None
+    min_difficulty = 1000000000000000000
+    for bat_id, bat_obj in batiment_dict.items():
+        if min_difficulty > bat_obj.get_building_difficulty():
+            min_difficulty = bat_obj.get_building_difficulty()
+            id_bat_to_add = bat_id
+    if id_bat_to_add == None:
+        break
+
+    print(id_bat_to_add)
+    print(min_difficulty)
+    impact_batiment_list.append(batiment_dict[id_bat_to_add])
+    # remove element from dictionary
+    batiment_dict.pop(id_bat_to_add, None)
+
+'''
+# checking impacted batiment
+while len(impact_batiment_list) != len(batiment_dict):
+    id_bat_to_add = None
+    min_difficulty = 1000000000000000000
+    for bat_id, bat_obj in batiment_dict.items():
+        if min_difficulty > bat_obj.get_building_difficulty():
+            min_difficulty = bat_obj.get_building_difficulty()
+            id_bat_to_add = bat_id
+
+    print(bat_id)
+    print(min_difficulty)
+    impact_batiment_list.append(bat_obj)
+    # remove element from dictionnary
+    batiment_dict.pop(bat_id, None)
+
+'''
+print("__ keys to remove __")
+# for element in keys_to_remove:
+#     print(element)
+        
+# print not impacted batiment 
+# for element in no_impact_batiment_list:
+#     print(element.id_building)
+
+# print impacted batiment 
+
+# for element in impact_batiment_list:
+#     print(element.id_building)
+
+for i in impact_batiment_list:
+    print(i)
+
+
 
 
 
 # for infra_index, infra_element in infra_dict.items():
     
 
-
-# for bat_id, bat_obj in batiment_dict.items():
+count = 0
     
-# for batiment_id, batiment_obj in batiment_dict.items():
-#     print(f"Batiment ID: {batiment_id}, Number of Infras: {len(batiment_obj.list_infras)}")
-#     for infra_obj in batiment_obj.list_infras:
-#         print(f"  Infrastructure ID: {infra_obj.infra_id}, Type: {infra_obj.infra_type}, Length: {infra_obj.length}")
+for batiment_id, batiment_obj in batiment_dict.items():
+    print(f"Batiment ID: {batiment_id}, Number of Infras: {len(batiment_obj.list_infras)}")
+    for infra_obj in batiment_obj.list_infras:
+        print(f"  Infrastructure ID: {infra_obj.infra_id}, Type: {infra_obj.infra_type}, Length: {infra_obj.length}, Difficulty: {infra_obj.infra_difficulty}")
+    count += 1
+    if count == 1:
+        break
 
 
 
