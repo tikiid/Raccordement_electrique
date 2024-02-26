@@ -20,4 +20,5 @@ Enfin, le code affiche les bâtiments impactés avec leur niveau de difficulté.
 
 ## Colaborateurs
 Thibaut Schweitzer
+
 Théau Naudin
