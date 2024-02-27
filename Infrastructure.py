@@ -8,10 +8,11 @@ class Infra:
         self.nb_houses =  nb_houses
         
         
-        
     def repair_infra(self):
         if self.infra_type == "a_remplacer": 
             self.infra_type = "infra_intacte"
     
     def get_infra_difficulty(self):
+        if self.infra_type == "infra_intacte":
+            return 0
         return self.length / self.nb_houses
