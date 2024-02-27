@@ -9,7 +9,7 @@ network_df = pd.read_csv('./reseau_file/dataset/reseau_en_arbre.csv')
 # print(network_df.head())
 
 def remove_element_from_dict_with_keys(dict, list_of_key):
-    for key in keys_to_remove:
+    for key in list_of_key:
         batiment_dict.pop(key, None)
     return dict
 
@@ -68,20 +68,21 @@ for bat_id, bat_obj in batiment_dict.items():
 
 # Remove not impacted batiment from batiment_dict
 
-for key in keys_to_remove:
-    batiment_dict.pop(key, None)
+# for key in keys_to_remove:
+#     batiment_dict.pop(key, None)
+
+batiment_dict = remove_element_from_dict_with_keys(batiment_dict, keys_to_remove)
 
 keys_to_remove.clear()
 # size of batiment dict with impacted batiement
 
 print(len(batiment_dict))
 
-min_difficulty = 10000000000
 
 # checking impacted batiment
 while len(impact_batiment_list) != len(batiment_dict):
     id_bat_to_add = None
-    min_difficulty = 1000000000000000000
+    min_difficulty = 1_000_000_000_000_000_000
     for bat_id, bat_obj in batiment_dict.items():
         if min_difficulty > bat_obj.get_building_difficulty():
             min_difficulty = bat_obj.get_building_difficulty()
@@ -89,9 +90,9 @@ while len(impact_batiment_list) != len(batiment_dict):
     if id_bat_to_add == None:
         break
 
-    print(id_bat_to_add)
-    print(min_difficulty)
-    impact_batiment_list.append(batiment_dict[id_bat_to_add])
+    # print(id_bat_to_add)
+    # print(min_difficulty)
+    impact_batiment_list.append((batiment_dict[id_bat_to_add], min_difficulty))
     # remove element from dictionary
     batiment_dict.pop(id_bat_to_add, None)
 
@@ -112,65 +113,7 @@ while len(impact_batiment_list) != len(batiment_dict):
     batiment_dict.pop(bat_id, None)
 
 '''
-print("__ keys to remove __")
-# for element in keys_to_remove:
-#     print(element)
-        
-# print not impacted batiment 
-# for element in no_impact_batiment_list:
-#     print(element.id_building)
 
-# print impacted batiment 
-
-# for element in impact_batiment_list:
-#     print(element.id_building)
-
-for i in impact_batiment_list:
-    print(i)
-
-
-
-
-
-# for infra_index, infra_element in infra_dict.items():
-    
-
-count = 0
-    
-for batiment_id, batiment_obj in batiment_dict.items():
-    print(f"Batiment ID: {batiment_id}, Number of Infras: {len(batiment_obj.list_infras)}")
-    for infra_obj in batiment_obj.list_infras:
-        print(f"  Infrastructure ID: {infra_obj.infra_id}, Type: {infra_obj.infra_type}, Length: {infra_obj.length}, Difficulty: {infra_obj.infra_difficulty}")
-    count += 1
-    if count == 1:
-        break
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
-# faire une table croisée dynamique
-
-# batiment_subdfs = network_df.groupby(by="id_batiment")
-# for id_batiment, batiment_subdf in batiment_subdfs:
-#     print(id_batiment)
-#     print(batiment_subdf)
-#     print("_" * 30)
-
-# infra_subdfs = network_df.groupby(by="infra_id")
-# for id_infra, infra_subdf in infra_subdfs:
-#     print(id_infra)
-#     print(infra_subdf)
-#     print("_" * 30)
-
-'''
+# afficher les batiments à raccorder dans l'ordre
+for element in impact_batiment_list:
+    print(f"Id building: {element[0].id_building} - Difficulty: {element[1]}")
