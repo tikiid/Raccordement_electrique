@@ -15,8 +15,7 @@ Le code suit les étapes suivantes pour planifier le raccordement électrique :
 - Association des infrastructures aux bâtiments correspondants.
 - Identification des bâtiments non impactés et suppression de ceux-ci du dictionnaire des bâtiments.
 - Sélection des bâtiments impactés en fonction de leur difficulté de raccordement.
-- Affichage des Résultats
-Enfin, le code affiche les bâtiments impactés avec leur niveau de difficulté.
+- Affichage des Résultats (les bâtiments impactés avec leur niveau de difficulté).
 
 ## Collaborateurs
 Thibaut Schweitzer
