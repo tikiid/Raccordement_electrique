@@ -9,7 +9,7 @@ def remove_element_from_dict_with_keys(dict, list_of_key):
 
 # Dataset
 
-network_df = pd.read_csv('./reseau_file/dataset/reseau_en_arbre.csv')
+network_df = pd.read_csv('./dataset/reseau_en_arbre.csv')
 
 # Create list and dictionnary
 
