@@ -12,7 +12,7 @@ def remove_element_from_dict_with_keys(dict, list_of_key):
 
 # Dataset
 
-network_df = pd.read_csv('./dataset/reseau_en_arbre.csv').drop_duplicates()
+network_df = pd.read_csv('./dataset/reseau_en_arbre.csv').drop_duplicates(inplace=True)
 
 # Create list and dictionnary
 
