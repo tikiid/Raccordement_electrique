@@ -1,6 +1,9 @@
 import pandas as pd
 from Batiment import *
 from Infrastructure import *
+import time
+
+a = time.time()
 
 def remove_element_from_dict_with_keys(dict, list_of_key):
     for key in list_of_key:
@@ -9,7 +12,7 @@ def remove_element_from_dict_with_keys(dict, list_of_key):
 
 # Dataset
 
-network_df = pd.read_csv('./dataset/reseau_en_arbre.csv')
+network_df = pd.read_csv('./dataset/reseau_en_arbre.csv').drop_duplicates()
 
 # Create list and dictionnary
 
@@ -99,3 +102,7 @@ while len(impact_batiment_list) != len(batiment_dict):
  
 for element in impact_batiment_list:
     print(f"Id building: {element[0].id_building} - Difficulty: {element[1]}")
+
+b = time.time()
+
+print(b - a)
